@@ -675,7 +675,7 @@ bool expr_reference(pass_opt_t* opt, ast_t** astp)
 
       ast_t* type = ast_type(def);
 
-      if(is_typecheck_error(type))
+      if(is_typecheck_error(type) && (errors_get_count(opt->check.errors) > 0))
         return false;
 
       if(type != NULL && ast_id(type) == TK_INFERTYPE)
@@ -686,6 +686,9 @@ bool expr_reference(pass_opt_t* opt, ast_t** astp)
         ast_settype(ast, ast_from(ast, TK_ERRORTYPE));
         return false;
       }
+
+      if(is_typecheck_error(type))
+        return false;
 
       if(!valid_reference(opt, ast, type, status))
         return false;

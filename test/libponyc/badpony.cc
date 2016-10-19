@@ -278,3 +278,14 @@ TEST_F(BadPonyTest, EmbedNestedTuple)
 
   TEST_ERRORS_1(src, "an embedded field must be assigned using a constructor");
 }
+
+TEST_F(BadPonyTest, CircularTypeInfer)
+{
+  // From issue #1334
+  const char* src =
+    "actor Main\n"
+    "  new create(env: Env) =>\n"
+    "    let x = x.create()";
+
+  TEST_ERRORS_1(src, "cannot infer type of x");
+}

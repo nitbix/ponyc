@@ -6,6 +6,8 @@ All notable changes to the Pony compiler and standard library will be documented
 
 ### Fixed
 
+- Compiler assert fail on circular type inference error (issue #1334)
+
 ### Added
 
 - DTrace and SystemTap support - `use=dtrace`
